@@ -15,6 +15,7 @@
         margin: 0;
         padding: 0;
         scroll-behavior: smooth;
+        box-sizing: border-box;
       }
 
       body {
@@ -38,9 +39,10 @@
 
       nav {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        gap: 30px;
-        padding: 10px 0;
+        gap: 15px;
+        padding: 4px 0;
       }
     
       nav a:hover{
@@ -54,6 +56,12 @@
         text-decoration: none;
         font-weight: bold;
         transition: transform 0.1s;
+      }
+
+      #imgInfo {
+        padding: 0%;
+        margin: 0%;
+
       }
 
       section {
@@ -103,6 +111,12 @@
         border: none;
         border-radius: 5px;
       }
+      #imgInfo {
+        padding: 0;
+        text-align: center;
+        color: #0ff;
+        text-decoration: underline;
+      }
 
       button {
         background: #0ff;
@@ -121,6 +135,81 @@
         color: #9b9090;
       }
 
+.ImgCantainer {
+  width: 90%;
+  max-width: 60%;
+  height: 400px; /* Set height */
+  margin: 50px auto;
+  overflow: hidden;
+  border: 5px solid #0ff;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+  position: relative;
+   background-color: #0e0e0e;
+}
+.warpper {
+			width: 100%;
+			display: flex;
+			animation: slide 15s linear infinite;
+		}
+
+
+@keyframes slide {
+  0%    { transform: translateX(0); }
+  20%   { transform: translateX(0); }
+
+  25%   { transform: translateX(-100%); }
+  40%   { transform: translateX(-100%); }
+
+  45%   { transform: translateX(-200%); }
+  60%   { transform: translateX(-200%); }
+
+  65%   { transform: translateX(-300%); }
+  80%   { transform: translateX(-300%); }
+
+  85%   { transform: translateX(-400%); }
+  100%   { transform: translateX(-400%); }
+
+}
+   
+img {
+  width: 100%;
+  height: 400px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background-color: #0e0e0e; /* or a color matching your image bg */
+}
+
+.Downloadbtn {
+
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40%;
+  height: 20%px;
+  background-color:  #0ff;
+  color: black;
+  font-size: 32px;
+  border: #0ff3;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s;
+
+}
+#threadCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1; /* So it stays behind everything */
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* So clicks go through */
+  background: #0e0e0e;
+}
+
+
+  
+
 
     </style>
 
@@ -136,10 +225,12 @@
 
   </head>
   <body>
-
+    
     <header>
       <h1>JARVIS - Your AI Assistant</h1>
     </header>
+
+    <canvas id="threadCanvas"></canvas>
 
   <div id="bg">
 
@@ -148,7 +239,6 @@
       <a href="#features">Features</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
-      <a href="https://drive.google.com/file/d/1YK9jUINJgvDCORMmpc790DmGO0JZEg8K/view?usp=sharing" target="_blank">Download Jarvis</a>
       <a href="https://console.picovoice.ai/login" target="_blank">WakeWord Key</a>
       <a href="https://aistudio.google.com/apikey" target="_blank">AI Key</a>
     </nav>
@@ -198,7 +288,18 @@
       <p>Jarvis is more than just an app — it's your smart AI companion.Designed with voice recognition, speaker verification, and real-time AI conversation, Jarvis listens, understands, and acts like a true assistant. It activates with the phrase “Hey Jarvis” and responds like a best friend — intelligent, fast, and personal.Whether you're talking, texting, or multitasking, Jarvis is always ready to help.</p>
     </section>
 
+    
 
+    <h2 id="imgInfo">Key Information</h2>
+    <div class="ImgCantainer">
+      <div class="warpper">
+        <img src="images/PicovoiceApi.png" alt="Picovoice Logo"/>
+        <img src="images/WakeWord.jpeg" alt="Jarvis Logo"/>
+        <img src="images/GeminiApi.png" alt="Ellie Image"/>
+        <img src="images/AI.jpeg" alt="Spider Image"/>
+        <img src="images/PicovoiceApi.png" alt="Picovoice Logo"/>
+      </div>
+    </div>
 
     <section id="contact">
   <h2>Contact Us</h2>
@@ -208,11 +309,10 @@
 
     <input type="email" name="user_email" placeholder="User Email" id="email" required />
     <textarea name="message" placeholder="Request feature or report bug" style="width: 100%; height: 200px;" id="message" required></textarea>
-   
-
     <button type="button" id="button" onclick="sendMail();">Send message</button>
   </form>
 </section>
+  <a href="https://drive.google.com/file/d/1YK9jUINJgvDCORMmpc790DmGO0JZEg8K/view?usp=sharing" target="_blank"><button class="Downloadbtn">Install</button></a>
 
     <footer>
       <p>© 2025 Jarvis AI. All rights reserved.</p>
@@ -233,7 +333,8 @@
 
     const serviceId = "service_j2d6afq";
     const mainTemplateId = "template_11neise";      
-    const replyTemplateId = "template_wz3bowj";  
+    const replyTemplateId = "template_wz3bowj"; 
+    
 
     
     emailjs.send(serviceId, mainTemplateId, params)
@@ -257,6 +358,209 @@
     });
 }
 </script>
+
+
+
+
+
+
+
+
+<script>
+const canvas = document.getElementById('threadCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const textCanvas = document.createElement('canvas');
+const textCtx = textCanvas.getContext('2d');
+textCanvas.width = 1500;
+textCanvas.height = 1500;
+
+let points = [];
+let targetPoints = [];
+let forming = false;
+let mouse = { x: null, y: null };
+const POINT_COUNT = 120;
+const REPULSION_RADIUS = 100;
+
+// Create random floating points
+for (let i = 0; i < POINT_COUNT; i++) {
+  points.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.3) * 1,
+    vy: (Math.random() - 0.3) * 1
+  });
+}
+
+// Convert text to dot position
+function generateTextPoints(text = "JARVIS") {
+  textCtx.clearRect(0, 0, textCanvas.width, textCanvas.height);
+  textCtx.font = "bold 120px Orbitron";
+  textCtx.fillStyle = "#00ffff";
+  textCtx.shadowColor = "#0ff";
+  textCtx.shadowBlur = 25;
+  
+  textCtx.textAlign = "center";
+  textCtx.textBaseline = "middle"; // ✅ important for vertical alignment
+  textCtx.fillText(text, textCanvas.width / 2, textCanvas.height / 2); // ✅ centered properly
+
+  const imageData = textCtx.getImageData(0, 0, textCanvas.width, textCanvas.height).data;
+  targetPoints = [];
+
+  for (let y = 0; y < textCanvas.height; y += 8) {
+    for (let x = 0; x < textCanvas.width; x += 8) {
+      const i = (y * textCanvas.width + x) * 4;
+      if (imageData[i + 3] > 128) {
+        targetPoints.push({
+          x: x + (canvas.width / 2 - textCanvas.width / 2),
+          y: y + (canvas.height / 2 - textCanvas.height / 2) // ✅ center align
+        });
+      }
+    }
+  }
+
+  // Add extra points if needed
+  while (points.length < targetPoints.length) {
+    points.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5),
+      vy: (Math.random() - 0.5)
+    });
+  }
+
+  forming = true;
+}
+
+
+window.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
+
+// Animate everything
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const glow = Math.sin(Date.now() / 500) * 2 + 6;
+
+  points.forEach((p, i) => {
+    
+     if (!forming && mouse.x !== null && mouse.y !== null) {
+  const dx = p.x - mouse.x;
+  const dy = p.y - mouse.y;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+
+  if (dist < REPULSION_RADIUS) {
+    const angle = Math.atan2(dy, dx);
+    const force = (REPULSION_RADIUS - dist) / REPULSION_RADIUS;
+    p.vx += Math.cos(angle) * force * 0.3;
+    p.vy += Math.sin(angle) * force * 0.3;
+  }
+}
+
+    if (forming && targetPoints[i]) {
+      p.x += (targetPoints[i].x - p.x) * 0.08;
+      p.y += (targetPoints[i].y - p.y) * 0.08;
+    } else {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = "#00ffff";
+    ctx.shadowBlur = glow;
+    ctx.shadowColor = "#00ffff";
+    ctx.fill();
+  });
+
+  
+  if (!forming) {
+    for (let i = 0; i < points.length; i++) {
+      let neighbors = 0;
+      for (let j = i + 1; j < points.length; j++) {
+
+         if (points.length > 70) {
+            points = points.slice(0, 70);
+        }  else if (points.length < 70) {
+    
+    for (let i = points.length; i < 70; i++) {
+      points.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5),
+        vy: (Math.random() - 0.5),
+      });
+    }
+  }
+        const dx = points[i].x - points[j].x;
+        const dy = points[i].y - points[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 60) {
+          ctx.beginPath();
+          ctx.moveTo(points[i].x, points[i].y);
+          ctx.lineTo(points[j].x, points[j].y);
+          ctx.strokeStyle = `rgba(0,255,255,${1 - dist / 60})`;
+          ctx.lineWidth = 1;
+          ctx.shadowBlur = 4;
+          ctx.shadowColor = "#00ffff";
+          ctx.stroke();
+          neighbors++;
+          if (neighbors >= 3) break;
+        }
+      }
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+// Trigger form on any screen click
+let isFormed = false;
+window.addEventListener("click", () => {
+  if (!isFormed) {
+
+
+    let userName=document.getElementById("name").value;
+    if( userName === "") {
+      userName = "JARVIS";
+    }else {
+      userName ="HELLO "+userName.toUpperCase();
+    }
+    generateTextPoints(userName);
+
+
+
+  } else {
+    forming = false;
+    for (let i = 0; i < points.length; i++) {
+      points[i].x = Math.random() * canvas.width-50;
+      points[i].y = Math.random() * canvas.height-50;
+      points[i].vx = (Math.random() - 0.3);
+      points[i].vy = (Math.random() - 0.3);
+    }
+  }
+  isFormed = !isFormed;
+});
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+animate();
+</script>
+
+
+animate();
+</script>
+
+
+
 
 
   </body>
