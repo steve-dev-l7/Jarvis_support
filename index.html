@@ -293,11 +293,11 @@ img {
     <h2 id="imgInfo">Key Information</h2>
     <div class="ImgCantainer">
       <div class="warpper">
-        <img src="images/PicovoiceApi.png" alt="Picovoice Logo"/>
-        <img src="images/WakeWord.jpeg" alt="Jarvis Logo"/>
-        <img src="images/GeminiApi.png" alt="Ellie Image"/>
-        <img src="images/AI.jpeg" alt="Spider Image"/>
-        <img src="images/PicovoiceApi.png" alt="Picovoice Logo"/>
+        <img src="images/PicovoiceApi.png" />
+        <img src="images/WakeWord.jpeg" />
+        <img src="images/GeminiApi.png" />
+        <img src="images/AI.jpeg" />
+        <img src="images/PicovoiceApi.png" />
       </div>
     </div>
 
@@ -403,8 +403,8 @@ function generateTextPoints(text = "JARVIS") {
   textCtx.shadowBlur = 25;
   
   textCtx.textAlign = "center";
-  textCtx.textBaseline = "middle"; // ✅ important for vertical alignment
-  textCtx.fillText(text, textCanvas.width / 2, textCanvas.height / 2); // ✅ centered properly
+  textCtx.textBaseline = "middle"; //  important for vertical alignment
+  textCtx.fillText(text, textCanvas.width / 2, textCanvas.height / 2); //  centered properly
 
   const imageData = textCtx.getImageData(0, 0, textCanvas.width, textCanvas.height).data;
   targetPoints = [];
@@ -415,7 +415,7 @@ function generateTextPoints(text = "JARVIS") {
       if (imageData[i + 3] > 128) {
         targetPoints.push({
           x: x + (canvas.width / 2 - textCanvas.width / 2),
-          y: y + (canvas.height / 2 - textCanvas.height / 2) // ✅ center align
+          y: y + (canvas.height / 2 - textCanvas.height / 2) //  center align
         });
       }
     }
@@ -555,9 +555,6 @@ window.addEventListener("resize", () => {
 animate();
 </script>
 
-
-animate();
-</script>
 
 
 
