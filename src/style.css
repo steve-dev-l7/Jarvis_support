@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #FFD700;
+  --color-gold-dark: #B8860B;
+  --color-gold-light: #FFEC8B;
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-white font-outfit;
+  }
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10;
+}
+
+.gold-shadow {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.gold-text-gradient {
+  @apply bg-gradient-to-r from-gold via-gold-dark to-gold bg-clip-text text-transparent;
+}
+
+.gold-border-gradient {
+  border: 1px solid transparent;
+  background: linear-gradient(#050505, #050505) padding-box,
+              linear-gradient(to right, #FFD700, #B8860B) border-box;
+}
